@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import spring.membership.dto.MemberDTO;
 import spring.membership.service.MemberService;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -24,6 +26,24 @@ public class MemberController {
     public String save(@ModelAttribute MemberDTO memberDTO) {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
+        return "login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if(loginResult!=null){
+            //로그인 성공
+            session.setAttribute("loginEmail",memberDTO.getMemberEmail());
+            return "main";
+        }
+        else{
+            return "login";
+        }
+    }
+
+    @GetMapping("/member/login")
+    public String loginForm(){
         return "login";
     }
 }
