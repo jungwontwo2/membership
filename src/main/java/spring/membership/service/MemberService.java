@@ -83,4 +83,8 @@ public class MemberService {
         //toUpdate에서는 id값이 있는 상황이기 때문에 update가 실행됨
         memberRepository.save(MemberEntity.toUpdateMemeberEntity(memberDTO));
     }
+
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
+    }
 }
