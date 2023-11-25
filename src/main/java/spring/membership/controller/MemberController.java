@@ -94,4 +94,16 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PostMapping("/member/email-check")
+    @ResponseBody
+    public String emailCheck(@RequestParam("memberEmail") String memberEmail){
+        System.out.println("memberEmail = " + memberEmail);
+        String checkResult = memberService.emailCheck(memberEmail);
+        return checkResult;
+//        if(checkResult!=null){
+//            return "ok";
+//        }else{
+//            return "no";
+//        }
+    }
 }
